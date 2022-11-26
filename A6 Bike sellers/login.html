@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>form</title>
+  <link rel="stylesheet" type="text/css" href="style2.css">
+ 
+</head>
+
+
+<body style="background-color: black;">
+
+<div class="card" >
+  
+  <div class="card-body">
+    <h5 class="card-title">Login</h5>
+    <p class="card-text">
+
+      <form action="home.html" method="post">
+  <div class="imgcontainer">
+    <img src="img/logo-3.png" alt="Logo" class="avatar">
+  </div>
+
+  <div class="container">
+    <label for="uname"><b>Username</b></label>
+    <input type="text" placeholder="Enter Username" name="uname" required>
+
+    <label for="psw"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="psw" pattern=".{8,}" title="eighr or more characters" required>
+
+    <button type="submit" href="home.html">Login</button>
+    
+     <p>Don't you have an account <a href="signup.html" style="color:dodgerblue">Sign Up</a>.</p>
+  </div>
+
+
+
+  <div class="container" style="background-color:#f1f1f1">
+    <button type="reset" class="cancelbtn">Reset</button>
+
+  </div>
+</form>
+</p>
+ 
+  </div>
+</div>
+
+
+</body>
+</html>
