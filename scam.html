@@ -1,0 +1,351 @@
+   Rdbms  programs  
+ 
+1.CODE: 
+Declare         a number;         b number;         c number;     Begin 
+       dbms_output.put_line('Enter a:');             a:=&a;        dbms_output.put_line('Enter b:');            b:=&b;        dbms_output.put_line('Enter c:'); 
+           c:=&C;    if (a>b) and (a>c)        then 
+       dbms_output.put_line('A is GREATEST'||A); 
+   elsif (b>a) and (b>c)        then 
+       dbms_output.put_line('B is GREATEST'||B); 
+   else  
+       dbms_output.put_line('C is GREATEST'||C);    end if;    End; 
+   / 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+OUTPUT: 
+ 
+Enter value for a: 45 old     7:         a:=&a; new   7:         a:=45; Enter value for b: 48 old    9:         b:=&b; new   9:         b:=48; Enter value for c: 47 old    11:         c:=&C; new  11:         c:=47; Enter a: Enter b: 
+Enter c: 
+B	is GREATEST48 
+ 
+Valid Data Sets: 
+ 
+Enter the value of a: 1 Enter the value of b: 2 Enter the value 
+of c: 3 
+OUTPUT: 
+ 
+C	is big 
+ 
+Invalid Data sets : 
+ 
+Enter the value 
+of a: y 
+Enter the value 
+of b: x 
+Enter the value 
+of c: a 
+ 
+Invalid data type 
+ 
+ 
+PL/SQL procedure successfully completed. 
+ 
+ 
+ 
+ 
+  
+2.CODE: 
+DECLARE 
+  n number(3);   s number(3):=0; 
+  t number(3); 
+BEGIN   n:=&n;   t:=n;       while t>0 loop         s:=s+power((t mod 10),3); 
+        t:=trunc(t/10); 
+      end loop; 
+  
+      if(s=n) then 
+        dbms_output.put_line('The Given Number ' || n || ' is an Armstrong Number');       else 
+        dbms_output.put_line('The Given Number ' || n || ' is Not an Armstrong Number');       end if; 
+END; 
+ 
+OUTPUT 1: 
+ 
+Enter value for n: 153 old   6:   n:=&n; 
+new   6:   n:=153; 
+The Given Number 153 is an Armstrong Number 
+ 
+PL/SQL procedure successfully completed. 
+ 
+ 
+OUTPUT 2 
+ 
+Enter value for n: 50 old   6:   n:=&n; 
+new   6:   n:=50; 
+The Given Number 50 is Not an Armstrong Number 
+ 
+PL/SQL procedure successfully completed. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+3 
+Code: 
+ 
+ DECLARE 
+i	NUMBER(3);     j NUMBER(3); BEGIN 
+dbms_output.Put_line('The prime numbers are:');  	dbms_output.new_line;     i := 2; 
+    LOOP 
+j	:= 2; 
+        LOOP 
+            EXIT WHEN( ( MOD(i, j) = 0 ) 
+                        OR ( j = i ) );             j := j + 1; 
+        END LOOP;         IF( j = i )THEN 
+          dbms_output.Put(i||'   '); 	 	 	 	 	 	 	    
+        END IF; 
+        i := i + 1; 
+        exit WHEN i = 50;     END LOOP;  	dbms_output.new_line; 
+END; 
+/ 
+ 
+The prime numbers are: 
+2   3   5   7   11   13   17   19   23   29   31   37   41   43   47 
+ 
+PL/SQL procedure successfully completed. 
+ 
+         
+  
+4 
+CODE: 
+DECLARE 
+2	v_width INTEGER; 
+3	v_height INTEGER := 0; /*presumably this gets assigned in some other way*/ 
+4	v_area INTEGER := 6; 
+5	BEGIN 
+6	IF v_height > 0 THEN 
+7	v_width := v_area / v_height; 
+8	DBMS_OUTPUT.PUT_LINE('v_width = ' || v_width); 
+9	ELSE 
+10	DBMS_OUTPUT.put_line('v_width is undetermined'); 
+11	END IF; 
+12	END; 
+13	/ 
+v_width is undetermined 
+ 
+PL/SQL procedure successfully completed. 
+ 
+5 
+CODE: 
+DECLARE 
+    var_record       employees%ROWTYPE;     CURSOR cur_test (max_sal NUMBER) IS 
+        SELECT * FROM employees WHERE salary < max_sal; 
+BEGIN 
+    OPEN cur_test(5800); 
+    LOOP 
+        FETCH cur_test INTO var_record; 
+        EXIT WHEN cur_test%NOTFOUND; 
+        DBMS_OUTPUT.PUT_LINE('Name: ' || var_record.first_name || chr(9)||' salary: ' 
+            || var_record.salary); 
+    END LOOP; 
+    CLOSE cur_test; 
+END; 
+/ 
+PL/SQL procedure successfully completed. 
+ 
+ 
+ 
+ 
+ 
+ 
+6 
+CODE: 
+Create table employees(employee_id number(10),first_name varchar(20),last_name varchar(20),department_id number(10),salary number(10)); 
+ 
+CREATE TABLE emp_temp AS   SELECT employee_id,          first_name,          last_name,       department_id,          salary 
+  FROM   employees; 
+DECLARE 
+    CURSOR employee_cur IS       SELECT employee_id, 
+             salary 
+      FROM   emp_temp 
+      WHERE  department_id = 50       FOR UPDATE;     incr_sal NUMBER; 
+BEGIN 
+    FOR employee_rec IN employee_cur LOOP         IF employee_rec.salary < 15000 THEN 
+          incr_sal := .15;         ELSE           incr_sal := .10;         END IF; 
+        UPDATE emp_temp 
+        SET    salary = salary + salary * incr_sal 
+        WHERE  CURRENT OF employee_cur; 
+    END LOOP; 
+END; 
+/ 
+PL/SQL procedure successfully completed. 
+ 
+7  
+CODE: 
+DECLARE 
+num number; reverse_num number:=0; begin num:=98765; while num>0 loop reverse_num:=(reverse_num*10) + mod(num,10); num:=trunc(num/10); end loop; 
+ 
+dbms_output.put_line(' Reversed number is : '|| reverse_num); end; 
+/ 
+Reversed number is : 56789 
+ 
+PL/SQL procedure successfully completed. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+8 
+CODE: SQL> CREATE TABLE emp ( 
+2	id         NUMBER PRIMARY KEY, 
+3	fname VARCHAR2(50), 
+4	lname  VARCHAR2(50) 
+5	); 
+ 
+Table created. 
+ 
+SQL> 
+SQL> INSERT INTO emp (id, fname, lname)VALUES (1, 'A', 'B'); 
+ 
+1 row created. 
+ 
+SQL> INSERT INTO emp (id, fname, lname)VALUES (2, 'C', 'D'); 
+ 
+1 row created. 
+ 
+SQL> INSERT INTO emp (id, fname, lname)VALUES (3, 'E', 'F'); 
+ 
+1 row created. 
+ 
+SQL> INSERT INTO emp (id, fname, lname)VALUES (4, 'G', 'H'); 
+ 
+1 row created. 
+ 
+SQL> INSERT INTO emp (id, fname, lname)VALUES (5, 'G', 'Z'); 
+ 
+1	row created. 
+ 
+SQL> SET SERVEROUTPUT ON 
+SQL> 
+SQL> CREATE OR REPLACE TRIGGER emp_trig 
+2	BEFORE UPDATE OF fname 
+3	ON emp 
+4	FOR EACH ROW 
+5	BEGIN 
+6	DBMS_OUTPUT.PUT_LINE('First Name '||:OLD.fname||' has change to '||:NEW.fname);   7  END; 
+  8  / 
+ 
+Trigger created. 
+ 
+SQL> 
+SQL> 
+SQL> SELECT trigger_name, status FROM user_triggers; 
+ 
+TRIGGER_NAME                   STATUS 
+------------------------------ -------- 
+EMP_TRIG                       ENABLED 
+INVENTORY_TRG                  DISABLED 
+DEMO_BIFER                     DISABLED 
+DEPT_SAL_TRG                   DISABLED 
+SYSTEMALTERUSER                DISABLED 
+USAGE_START                    DISABLED 
+USAGE_STOP                     DISABLED 
+USER_LOGON_MODULE_CHECK        DISABLED 
+ 
+8 rows selected. 
+ 
+SQL> 
+SQL> drop table emp; 
+ 
+Table dropped 
+ 
+ 
+ 
+ 
+CODE:  
+SQL> create table deleted_employees 
+2	(action      varchar2(10), 
+3	datum       date, 
+4	who         varchar2(20), 
+5	employee_id number, 
+6	first_name  varchar2(10), 
+7	salary      number 
+8	); 
+Table created. 
+Trigger: 
+SQL> create or replace trigger log_delete_employee 
+2	after delete on employees 
+3	for each row 
+4	begin 
+5	insert into deleted_employees 
+6	(action,   7       datum, 
+8	who, 
+9	employee_id, 
+10	first_name, 
+11	salary 
+12	) 
+13	values 
+14	('delete', 
+15	sysdate, 
+16	user, 
+17	:old.employee_id, 
+18	:old.first_name, 
+19	:old.salary 
+20	); 
+21	end; 
+22	/ 
+Trigger created. 
+ 
+SQL> 
+Testing: current table contents: 
+QL> select * from employees; 
+ 
+EMPLOYEE_ID FIRST_NAME     SALARY 
+----------- ---------- ----------        7369 SMITH             800 
+       7499 ALLEN            1600 
+       7521 WARD             1250 
+       7566 JONES            2975        7654 MARTIN           1250 Let's delete one of them: 
+ 
+SQL> delete from employees where first_name = 'SMITH'; 
+ 
+1 row deleted. 
+The result: 
+ 
+SQL> select * from deleted_employees; 
+ 
+ACTION     DATUM               WHO        EMPLOYEE_ID FIRST_NAME     SALARY 
+---------- ------------------- ---------- ----------- ---------- ---------- delete     07.06.2021 21:46:39 SCOTT             7369 SMITH             800 
+ 
+SQL> select * from employees; 
+ 
+EMPLOYEE_ID FIRST_NAME     SALARY 
+----------- ---------- ----------        7499 ALLEN            1600 
+       7521 WARD             1250 
+       7566 JONES            2975 
+       7654 MARTIN         1250 
